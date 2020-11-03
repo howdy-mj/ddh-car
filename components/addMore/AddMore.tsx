@@ -6,18 +6,28 @@ import { SubTitle } from '@components/ui/Text';
 const AddMore: FC = () => {
   return (
     <Wrap>
-      <Image src="/images/addmore.png" alt="add" width={24} height={24} />
-      <Text>차량 추가하기</Text>
+      <AddDiv>
+        <Image src="/images/addmore.png" alt="add" width={24} height={24} />
+        <Text>차량 추가하기</Text>
+      </AddDiv>
     </Wrap>
   );
 };
 
-const Wrap = styled.header`
+const Wrap = styled.div`
+  margin: 2rem 0;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+`;
+
+const AddDiv = styled.div`
   background-color: rgb(247, 247, 247);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 4.7rem;
+  width: 34.6rem;
   border-radius: 0.8rem;
 `;
 

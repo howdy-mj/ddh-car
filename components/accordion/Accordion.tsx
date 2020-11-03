@@ -4,7 +4,7 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import { withStyles } from '@material-ui/core';
-// import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 interface AccordionProps {
   title: String;
@@ -15,11 +15,7 @@ const AccordionWrap: FC<AccordionProps> = ({ title, children }) => {
   return (
     <div>
       <AccordionStyled>
-        <AccordionSummaryStyled
-          // expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
+        <AccordionSummaryStyled expandIcon={<ExpandMoreIcon />}>
           <Title>{title} 정보</Title>
         </AccordionSummaryStyled>
         <AccordionDetails>{children}</AccordionDetails>
@@ -49,7 +45,9 @@ const AccordionStyled = withStyles({
 const AccordionSummaryStyled = withStyles({
   root: {
     borderBottom: `1px solid rgb(102, 102, 102)`,
-    marginBottom: -1,
+    width: '85%',
+    margin: '0 auto',
+    padding: '0 1rem',
     minHeight: '4.9rem',
     '&$expanded': {
       minHeight: 56,
@@ -59,6 +57,12 @@ const AccordionSummaryStyled = withStyles({
     '&$expanded': {
       margin: '12px 0',
     },
+  },
+  expandIcon: {
+    color: 'rgb(34, 148, 227)',
+    width: '1.8rem',
+    height: '1.8rem',
+    padding: '0',
   },
   expanded: {},
 })(AccordionSummary);

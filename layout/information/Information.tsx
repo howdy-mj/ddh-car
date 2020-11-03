@@ -1,22 +1,19 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import Image from 'next/image';
-import {
-  Button,
-  SubTitle,
-  Flex,
-  Description,
-  AddMore,
-} from '@components/index';
+import { Button, SubTitle, Flex, Description } from '@components/index';
 import FormControl from '@material-ui/core/FormControl';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Input from '@material-ui/core/Input';
+import { UploadImg, ChooseMaker } from './fragment';
+import store from '@store/index';
 
 interface State {
   price: string;
 }
 
 const Information: FC = () => {
+  const { registerCarStore } = store;
+  console.log(registerCarStore);
   const [values, setValues] = React.useState<State>({
     price: '',
   });
@@ -28,7 +25,7 @@ const Information: FC = () => {
   };
 
   return (
-    <Wrap>
+    <div>
       <ItemDiv>
         <SubTitle>사고이력</SubTitle>
         <SelectWrap>
@@ -46,22 +43,23 @@ const Information: FC = () => {
           <Description>외제차의 경우 체크하세요</Description>
         </Flex>
         <SelectWrap>
-          <Button label="현대" size="small" />
-          <Button label="르노 삼성" size="small" />
-          <Button label="기아" size="small" />
-          <Button label="쌍용" size="small" />
-          <Button label="GM 대우" size="small" />
-          <Button label="기타" size="small" />
+          <ChooseMaker />
         </SelectWrap>
       </ItemDiv>
       <ItemDiv>
         <Flex>
           <SubTitle>차량 사진</SubTitle>
-          <Description>10개 등록 가능</Description>
+          <Flex>
+            <Description>10개 등록 가능</Description>
+            <Description>
+              {registerCarStore.pictures[0].image === null
+                ? 0
+                : registerCarStore.pictures.length}{' '}
+              / 10
+            </Description>
+          </Flex>
         </Flex>
-        <UploadImg>
-          <Image src="/images/plus.png" alt="add" width={30} height={30} />
-        </UploadImg>
+        <UploadImg />
       </ItemDiv>
       <ItemDiv>
         <Flex>
@@ -82,16 +80,9 @@ const Information: FC = () => {
           <Button label="임시저장" selected />
         </Flex>
       </ItemDiv>
-      <ItemDiv>
-        <Add>
-          <AddMore />
-        </Add>
-      </ItemDiv>
-    </Wrap>
+    </div>
   );
 };
-
-const Add = styled.div``;
 
 const FormStyled = styled(FormControl)`
   width: 100%;
@@ -100,10 +91,6 @@ const FormStyled = styled(FormControl)`
 const InputStyled = styled(Input)`
   height: 4.9rem;
   text-align: right;
-`;
-
-const Wrap = styled.div`
-  padding: 0 1.6rem;
 `;
 
 const ItemDiv = styled.div`
@@ -130,17 +117,6 @@ const TextArea = styled.textarea`
   color: ${(props) => props.theme.brownishGrey};
   background-color: rgb(247, 247, 247);
   padding: 1.1rem 1.3rem;
-`;
-
-const UploadImg = styled.div`
-  width: 11.5rem;
-  height: 11.5rem;
-  background-color: rgba(34, 148, 227, 0.17);
-  border-radius: 1rem;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 export default Information;
