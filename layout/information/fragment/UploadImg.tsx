@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import store from '@store/index';
-import { PictureProps } from '@interface/carInfo';
+import { PictureProps } from '../../../interfaces/carInfo';
 
 const UploadImg: FC<PictureProps> = () => {
   const { registerCarStore } = store;
