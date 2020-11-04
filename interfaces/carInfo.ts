@@ -7,7 +7,7 @@ export interface CarInfoProps {
   price: string;
 }
 
-interface PictureProps {
+export interface PictureProps {
   image: any;
   preview: string | ArrayBuffer;
 }

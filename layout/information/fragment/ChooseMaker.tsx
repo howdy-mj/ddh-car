@@ -1,6 +1,5 @@
 import React from 'react';
 import store from '@store/index';
-import { computed, autorun } from 'mobx';
 import { Button } from '@components/index';
 
 const makers = [
@@ -17,13 +16,9 @@ const ChooseMaker = () => {
 
   const changeMaker = (name) => {
     registerCarStore.selectMaker(name);
-    console.log('dddddd', registerCarStore.result);
   };
-  autorun(() => registerCarStore.result);
 
-  console.log('current maker========', registerCarStore.maker);
-
-  // autorun(() => console.log(`maker가 바뀌었어요! ${registerCarStore.maker}`));
+  // console.log('current maker====', registerCarStore.result.maker);
 
   return (
     <>
@@ -34,7 +29,7 @@ const ChooseMaker = () => {
             label={maker.label}
             size="small"
             onClick={() => changeMaker(maker.label)}
-            selected={registerCarStore.maker === maker.label}
+            selected={registerCarStore.result.maker === maker.label}
           />
         );
       })}

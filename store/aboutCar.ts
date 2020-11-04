@@ -1,8 +1,47 @@
-import React from 'react';
-import { extendObservable } from 'mobx';
+import { configure, makeAutoObservable } from 'mobx';
 import { CarInfoProps } from '@interfaces/carInfo';
 
-let carInfo = <CarInfoProps>{
+configure({
+  enforceActions: 'never',
+  reactionRequiresObservable: true,
+});
+
+class RegisterCar {
+  constructor(carInfo: CarInfoProps) {
+    makeAutoObservable(carInfo);
+  }
+
+  get result() {
+    return carInfo;
+  }
+
+  hasAccident(yesOrNo) {
+    carInfo.accidentHistory = yesOrNo;
+  }
+
+  selectMaker(name) {
+    carInfo.maker = name;
+  }
+
+  addPictures({ image, preview }) {
+    if (carInfo.pictures[0].image === null) {
+      carInfo.pictures = [{ image, preview }];
+    } else {
+      carInfo.pictures.push({ image, preview });
+    }
+  }
+
+  reset() {
+    carInfo.accidentHistory = true;
+    carInfo.fixedHistory = '';
+    carInfo.maker = '현대';
+    carInfo.foreignCar = false;
+    carInfo.pictures = [{ image: null, preview: null }];
+    carInfo.price = '';
+  }
+}
+
+const carInfo = {
   accidentHistory: true,
   fixedHistory: '',
   maker: '현대',
@@ -11,22 +50,4 @@ let carInfo = <CarInfoProps>{
   price: '',
 };
 
-class RegisterCar {
-  constructor() {
-    extendObservable(this, carInfo);
-  }
-
-  get result() {
-    return carInfo;
-  }
-
-  selectMaker(name) {
-    carInfo.maker = name;
-  }
-
-  addPictures(file, preview) {
-    carInfo.pictures.push(file, preview);
-  }
-}
-
-export const registerCarStore = new RegisterCar();
+export const registerCarStore = new RegisterCar(carInfo);

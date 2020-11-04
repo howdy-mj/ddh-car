@@ -2,18 +2,9 @@ import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import store from '@store/index';
-import { autorun } from 'mobx';
+import { PictureProps } from '@interface/carInfo';
 
-interface ImgProps {
-  uploadImg?: [
-    {
-      image: any;
-      preview: string | ArrayBuffer;
-    }
-  ];
-}
-
-const UploadImg: FC<ImgProps> = () => {
+const UploadImg: FC<PictureProps> = () => {
   const { registerCarStore } = store;
   // const [uploadImg, setUploadImg] = useState([
   //   {
@@ -42,19 +33,12 @@ const UploadImg: FC<ImgProps> = () => {
     let file = e.target.files[0];
 
     reader.onloadend = () => {
-      if (registerCarStore.pictures[0].image === null) {
-        registerCarStore.addPictures(file, reader.result);
-      } else {
-        registerCarStore.pictures = [
-          ...registerCarStore.pictures,
-          { image: file, preview: reader.result },
-        ];
-      }
+      registerCarStore.addPictures({ image: file, preview: reader.result });
     };
     reader.readAsDataURL(file);
   };
-  autorun(() => registerCarStore.result);
-  autorun(() => console.log(`pictures! ${registerCarStore.pictures}`));
+
+  // autorun(() => console.log(`pictures! ${registerCarStore.result.pictures}`));
 
   return (
     <Wrap>
@@ -67,10 +51,17 @@ const UploadImg: FC<ImgProps> = () => {
           id="uploadFile"
           accept="image/*"
           onChange={handleFile}
+          multiple
         />
       </UploadForm>
-      {registerCarStore.pictures[0].image !== null &&
-        registerCarStore.pictures.map((img) => {
+      {/* {uploadImg[0].image !== null &&
+        uploadImg.map((img) => {
+          return (
+            <Preview key={img.image.name} src={img.preview} alt="preview" />
+          );
+        })} */}
+      {registerCarStore.result.pictures[0].image !== null &&
+        registerCarStore.result.pictures.map((img) => {
           return (
             <Preview key={img.image.name} src={img.preview} alt="preview" />
           );
@@ -83,8 +74,8 @@ export default UploadImg;
 
 const Wrap = styled.div`
   display: flex;
-  /* width: 34rem; */
-  /* overflow-x: hidden; */
+  width: 34rem;
+  overflow: auto;
 `;
 
 const UploadForm = styled.form`
@@ -112,8 +103,8 @@ const UploadInput = styled.input`
 `;
 
 const Preview = styled.img`
-  display: block;
-  width: 11.5rem;
+  display: inline-block;
+  min-width: 11.5rem;
   height: 11.5rem;
   display: flex;
   justify-content: center;
