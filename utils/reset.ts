@@ -13,6 +13,11 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-size: 1.6rem;
     font-family: 'Noto Sans KR', 'Noto Sans', sans-serif;
+
+    @media only screen and (min-width: 25em) {
+      max-width: 40rem;
+      margin: 0 auto;
+    }
   }
   a {
     &:link,

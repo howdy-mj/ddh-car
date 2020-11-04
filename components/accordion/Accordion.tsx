@@ -18,7 +18,7 @@ const AccordionWrap: FC<AccordionProps> = ({ title, children }) => {
         <AccordionSummaryStyled expandIcon={<ExpandMoreIcon />}>
           <Title>{title} 정보</Title>
         </AccordionSummaryStyled>
-        <AccordionDetails>{children}</AccordionDetails>
+        <AccordionDetailsStyled>{children}</AccordionDetailsStyled>
       </AccordionStyled>
     </div>
   );
@@ -66,6 +66,13 @@ const AccordionSummaryStyled = withStyles({
   },
   expanded: {},
 })(AccordionSummary);
+
+const AccordionDetailsStyled = withStyles({
+  root: {
+    margin: '0 2rem',
+    padding: '0 0.5rem',
+  },
+})(AccordionDetails);
 
 const Title = styled.h2`
   font-size: 1.8rem;

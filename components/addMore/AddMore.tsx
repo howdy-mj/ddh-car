@@ -3,9 +3,13 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { SubTitle } from '@components/ui/Text';
 
-const AddMore: FC = () => {
+interface AddMoreProps {
+  addAnotherCar: () => void;
+}
+
+const AddMore: FC<AddMoreProps> = ({ addAnotherCar }) => {
   return (
-    <Wrap>
+    <Wrap onClick={addAnotherCar}>
       <AddDiv>
         <Image src="/images/addmore.png" alt="add" width={24} height={24} />
         <Text>차량 추가하기</Text>
