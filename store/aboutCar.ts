@@ -1,5 +1,5 @@
 import { configure, makeAutoObservable } from 'mobx';
-import { CarInfoProps } from '@interfaces/carInfo';
+import { CarInfoProps } from '../interfaces/carInfo';
 
 configure({
   enforceActions: 'never',
